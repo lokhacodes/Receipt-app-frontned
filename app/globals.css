@@ -1,0 +1,894 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+/* ===========================
+   Base Styles
+=========================== */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-poppins), Inter, sans-serif;
+    background: #F5F7FB;
+    color: #111827;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  input,
+  button,
+  textarea {
+    font: inherit;
+  }
+
+  input {
+    outline: none;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+/* ===========================
+   Reusable Components
+=========================== */
+
+@layer components {
+  /* ---------- Layout ---------- */
+
+  .page-container {
+    @apply min-h-screen flex items-center justify-center px-6 py-12;
+  }
+
+  /* ---------- Auth ---------- */
+
+  .auth-card {
+    @apply w-full max-w-lg rounded-3xl bg-white p-12 shadow-card;
+  }
+
+  .auth-title {
+    @apply text-4xl font-bold text-text;
+  }
+
+  .auth-subtitle {
+    @apply mt-3 text-base text-subtitle;
+  }
+
+  .auth-label {
+    @apply mb-3 block text-sm font-medium text-text;
+  }
+
+  .auth-input {
+    @apply h-14 w-full rounded-2xl border border-border bg-white px-5 transition duration-200;
+  }
+
+  .auth-input:focus {
+    @apply border-primary ring-4 ring-primary/10;
+  }
+
+  .auth-button {
+    @apply h-14 w-full rounded-2xl bg-primary text-white font-semibold shadow-button transition duration-200;
+  }
+
+  .auth-button:hover {
+    @apply bg-primary-hover;
+  }
+
+  .auth-link {
+    @apply font-medium text-primary hover:underline;
+  }
+
+  .auth-message-error {
+    @apply rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-danger;
+  }
+
+  .auth-message-success {
+    @apply rounded-2xl border border-green-200 bg-green-50 p-4 text-sm text-success;
+  }
+
+  /* ===========================
+      Footer Navigation
+  =========================== */
+
+  .footer-nav {
+    @apply fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card shadow-lg;
+  }
+
+  .footer-nav-content {
+    @apply flex h-20 items-center justify-around;
+  }
+
+  .footer-nav-item {
+    @apply relative flex w-20 flex-col items-center justify-center;
+  }
+
+  .footer-nav-item-left {
+    @apply mr-10;
+  }
+
+  .footer-nav-item-right {
+    @apply ml-10;
+  }
+
+  .footer-nav-active-line {
+    @apply absolute -top-5 left-0 h-[2px] w-full bg-primary;
+  }
+
+  .footer-nav-icon {
+    @apply text-subtitle transition-colors duration-200;
+  }
+
+  .footer-nav-icon-active {
+    @apply text-primary;
+  }
+
+  .footer-nav-text {
+    @apply mt-1 text-xs font-medium text-subtitle transition-colors duration-200;
+  }
+
+  .footer-nav-text-active {
+    @apply text-primary;
+  }
+
+  /* ---------- Floating Action Button ---------- */
+
+  .footer-fab {
+    @apply absolute left-1/2 -top-7 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-2xl bg-primary text-white shadow-xl transition-all duration-300 hover:scale-105;
+  }
+
+  /* ---------- Popup ---------- */
+
+  .footer-popup {
+    @apply fixed bottom-32 left-1/2 z-50 flex -translate-x-1/2 flex-col gap-3;
+  }
+
+  .footer-popup-card {
+    @apply w-36 rounded-2xl bg-white p-4 shadow-xl transition duration-200 hover:scale-105;
+  }
+
+  .footer-popup-icon {
+    @apply mx-auto flex h-12 w-12 items-center justify-center rounded-full text-white shadow;
+  }
+
+  .footer-popup-icon-expense {
+    @apply bg-primary;
+  }
+
+  .footer-popup-icon-report {
+    @apply bg-green-500;
+  }
+
+  .footer-popup-title {
+    @apply mt-3 text-center text-sm font-semibold text-text;
+  }
+
+  .footer-popup-subtitle {
+    @apply text-center text-xs text-subtitle;
+  }
+
+  /* ==========================================
+   PROFILE
+========================================== */
+
+.profile-page {
+  @apply min-h-screen bg-background px-5 pt-6 pb-28;
+}
+
+.profile-card {
+  @apply rounded-3xl border border-border bg-card p-5 shadow-card;
+}
+
+.profile-avatar {
+  @apply flex h-16 w-16 items-center justify-center rounded-full bg-gray-300;
+}
+
+.profile-info-title {
+  @apply text-2xl font-bold text-primary;
+}
+
+.profile-info-subtitle {
+  @apply mt-1 text-sm text-subtitle;
+}
+
+.profile-email {
+  @apply mt-6 flex items-center gap-4;
+}
+
+.profile-icon-box {
+  @apply flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100;
+}
+
+.profile-menu {
+  @apply mt-6 overflow-hidden rounded-3xl border border-border bg-card shadow-card;
+}
+
+.profile-menu-item {
+  @apply flex w-full items-center justify-between px-5 py-5 transition hover:bg-gray-50;
+}
+
+.profile-menu-left {
+  @apply flex items-center gap-4;
+}
+
+.profile-menu-icon {
+  @apply flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100;
+}
+
+.profile-menu-title {
+  @apply font-semibold text-text;
+}
+
+.profile-menu-description {
+  @apply text-sm text-subtitle;
+}
+
+.profile-logout {
+  @apply mt-6 flex w-full items-center justify-center gap-2 rounded-2xl border border-red-200 bg-white py-4 font-semibold text-danger transition hover:bg-red-50;
+}
+
+/* ==========================================
+   PAGE HEADER
+========================================== */
+
+.page-header {
+  @apply relative mb-8 flex items-center;
+}
+
+.page-header-back {
+  @apply rounded-full p-2 transition hover:bg-gray-100;
+}
+
+.page-header-title {
+  @apply absolute left-1/2 -translate-x-1/2 text-2xl font-bold text-primary;
+}
+
+/* ==========================================
+   EDIT PROFILE
+========================================== */
+
+.profile-avatar-card {
+  @apply rounded-3xl border border-border bg-card p-6 shadow-card;
+}
+
+.profile-avatar-wrapper {
+  @apply flex justify-center;
+}
+
+.profile-avatar-image-wrapper {
+  @apply relative;
+}
+
+.profile-avatar-image {
+  @apply h-32 w-32 rounded-full object-cover;
+}
+
+.profile-camera-button {
+  @apply absolute bottom-1 right-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white shadow-button;
+}
+
+/* ==========================================
+   PROFILE FORM
+========================================== */
+
+.profile-form {
+  @apply mt-6 overflow-hidden rounded-3xl border border-border bg-card shadow-card;
+}
+
+.profile-form-row {
+  @apply flex items-center justify-between px-5 py-5;
+}
+
+.profile-form-border {
+  @apply border-b border-gray-100;
+}
+
+.profile-form-left {
+  @apply flex flex-1 items-center gap-4;
+}
+
+.profile-form-icon {
+  @apply flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100;
+}
+
+.profile-form-input {
+  @apply w-full bg-transparent text-[15px] text-text outline-none;
+}
+
+.profile-save-btn {
+  @apply mt-8 h-14 w-full rounded-2xl bg-primary font-semibold text-white shadow-button transition duration-200 hover:bg-primary-hover;
+}
+
+
+/* ==========================================
+   NOTIFICATIONS
+========================================== */
+
+.notification-description {
+  @apply mb-5 text-sm text-subtitle;
+}
+
+.notification-card {
+  @apply overflow-hidden rounded-3xl border border-border bg-card shadow-card;
+}
+
+.notification-item {
+  @apply flex items-center justify-between px-5 py-5;
+}
+
+.notification-item-border {
+  @apply border-b border-gray-100;
+}
+
+.notification-left {
+  @apply flex items-center gap-4;
+}
+
+.notification-icon {
+  @apply flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100;
+}
+
+.notification-title {
+  @apply font-semibold text-text;
+}
+
+.notification-subtitle {
+  @apply text-sm text-subtitle;
+}
+
+/* Toggle */
+
+.notification-toggle {
+  @apply relative h-7 w-12 rounded-full transition duration-300;
+}
+
+.notification-toggle-on {
+  @apply bg-primary;
+}
+
+.notification-toggle-off {
+  @apply bg-gray-300;
+}
+
+.notification-toggle-circle {
+  @apply absolute top-1 h-5 w-5 rounded-full bg-white transition-all duration-300;
+}
+
+.notification-toggle-circle-on {
+  @apply right-1;
+}
+
+.notification-toggle-circle-off {
+  @apply left-1;
+}
+}
+
+/* ==========================================
+   HOME PAGE
+========================================== */
+
+.home-page {
+  @apply min-h-screen bg-background px-5 pt-6 pb-28;
+}
+
+/* Header */
+
+.home-header {
+  @apply mb-6 flex items-start justify-between;
+}
+
+.home-company {
+  @apply text-3xl font-bold text-text;
+}
+
+.home-company-subtitle {
+  @apply mt-1 text-sm text-subtitle;
+}
+
+.home-actions {
+  @apply flex items-center gap-3;
+}
+
+.home-header-left {
+  @apply flex items-center gap-3;
+}
+
+.header-back-button {
+  @apply flex h-10 w-10 items-center justify-center rounded-full bg-white border border-border shadow-sm transition hover:bg-gray-50;
+}
+
+.language-button {
+  @apply flex items-center gap-2 rounded-full bg-white px-3 py-2 shadow-card;
+}
+
+.notification-button {
+  @apply flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-card;
+}
+
+/* Expense Summary */
+
+.summary-card {
+  @apply rounded-3xl border border-border bg-card p-6 shadow-card;
+}
+
+.summary-icon {
+  @apply flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white;
+}
+
+.summary-amount {
+  @apply mt-8 text-4xl font-bold text-text;
+}
+
+.summary-currency {
+  @apply ml-2 text-xl font-semibold text-subtitle;
+}
+
+.summary-title {
+  @apply mt-2 text-lg text-subtitle;
+}
+
+/* Shared Section */
+
+.section-header {
+  @apply mb-4 mt-8 flex items-center justify-between;
+}
+
+.section-title {
+  @apply text-lg font-bold uppercase tracking-wide text-text;
+}
+
+.section-link {
+  @apply text-sm font-semibold text-primary;
+}
+
+
+/* ==========================================
+   QUICK ACTIONS
+========================================== */
+
+.quick-actions {
+  @apply grid grid-cols-2 gap-4;
+}
+
+.quick-action-card {
+  @apply flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm transition-all duration-200 hover:shadow-card hover:-translate-y-1;
+}
+
+.quick-action-card-primary {
+  @apply border-primary/30 bg-primary/5;
+}
+
+.quick-action-icon {
+  @apply flex h-14 w-14 items-center justify-center rounded-2xl text-white;
+}
+
+.quick-action-icon-primary {
+  @apply bg-primary;
+}
+
+.quick-action-icon-secondary {
+  @apply bg-gray-700;
+}
+
+.quick-action-title {
+  @apply text-lg font-semibold text-text leading-6;
+}
+
+.quick-action-subtitle {
+  @apply mt-1 text-sm text-subtitle;
+}
+
+/* ==========================================
+   REPORTS
+========================================== */
+
+.report-list {
+  @apply space-y-4;
+}
+
+.report-card {
+  @apply rounded-2xl border border-border bg-card p-4 shadow-sm transition-all duration-200 hover:shadow-card;
+}
+
+.report-top {
+  @apply flex items-start justify-between;
+}
+
+.report-left {
+  @apply flex gap-4;
+}
+
+.report-icon {
+  @apply flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-100;
+}
+
+.report-title {
+  @apply text-lg font-bold text-text;
+}
+
+.report-date {
+  @apply mt-1 text-sm text-subtitle;
+}
+
+.report-amount {
+  @apply text-lg font-bold text-text;
+}
+
+.report-bottom {
+  @apply mt-4 flex items-center justify-between;
+}
+
+.report-tags {
+  @apply flex items-center gap-2;
+}
+
+.report-tag {
+  @apply rounded-full border border-primary bg-primary/10 px-3 py-1 text-xs font-medium text-primary;
+}
+
+.report-expense-count {
+  @apply rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-xs font-medium text-text;
+}
+
+.report-arrow {
+  @apply text-gray-400 transition group-hover:translate-x-1;
+}
+
+/* ==========================================
+   RECENT EXPENSES
+========================================== */
+
+.expense-list {
+  @apply space-y-4;
+}
+
+.expense-card {
+  @apply rounded-2xl border border-border bg-card p-4 shadow-sm transition-all duration-200 hover:shadow-card;
+}
+
+.expense-top {
+  @apply flex items-start justify-between;
+}
+
+.expense-left {
+  @apply flex gap-4;
+}
+
+.expense-icon {
+  @apply flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100;
+}
+
+.expense-title {
+  @apply text-lg font-bold text-text;
+}
+
+.expense-merchant {
+  @apply mt-1 text-sm text-subtitle;
+}
+
+.expense-date {
+  @apply mt-1 text-sm text-subtitle;
+}
+
+.expense-amount {
+  @apply text-lg font-bold text-text;
+}
+
+.expense-bottom {
+  @apply mt-4 flex items-center justify-between;
+}
+
+.expense-tags {
+  @apply flex gap-2;
+}
+
+.expense-tag-food {
+  @apply rounded-full bg-cyan-100 px-3 py-1 text-xs font-medium text-cyan-700;
+}
+
+.expense-tag-report {
+  @apply rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700;
+}
+
+.expense-arrow {
+  @apply text-gray-400 transition group-hover:translate-x-1;
+}
+
+/* ==========================================
+   RECEIPT MODAL
+========================================== */
+
+.modal-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm;
+}
+
+.receipt-modal {
+  @apply w-[92%] max-w-sm rounded-3xl bg-white shadow-2xl;
+}
+
+.receipt-modal-header {
+  @apply flex items-center justify-between border-b border-border px-6 py-5;
+}
+
+.receipt-modal-title {
+  @apply text-xl font-semibold text-text;
+}
+
+.receipt-close {
+  @apply rounded-full p-2 transition hover:bg-gray-100;
+}
+
+/* Options */
+
+.receipt-options {
+  @apply space-y-5 p-6;
+}
+
+.receipt-divider {
+  @apply relative flex items-center justify-center;
+}
+
+.receipt-divider::before {
+  content: "";
+  @apply absolute left-0 right-0 border-t border-dashed border-gray-300;
+}
+
+.receipt-divider span {
+  @apply z-10 bg-white px-3 text-sm text-subtitle;
+}
+
+.receipt-option {
+  @apply flex flex-col items-center rounded-3xl border-2 border-dashed border-cyan-300 py-8 transition hover:bg-cyan-50;
+}
+
+.receipt-option-gallery {
+  @apply border-gray-300 hover:bg-gray-50;
+}
+
+.receipt-option-icon {
+  @apply mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-cyan-100 text-primary;
+}
+
+.receipt-option-gallery-icon {
+  @apply bg-gray-100 text-gray-600;
+}
+
+.receipt-option-title {
+  @apply text-lg font-semibold text-text;
+}
+
+/* Receipt Preview */
+
+.receipt-preview {
+  @apply mt-6 overflow-hidden rounded-3xl border border-border bg-white shadow-card;
+}
+
+.receipt-preview img {
+  @apply w-full object-cover;
+}
+
+/* ==========================================
+   RECEIPT REVIEW PAGE
+========================================== */
+
+.receipt-page {
+  @apply min-h-screen bg-background pb-28;
+}
+
+.receipt-container {
+  @apply mx-auto max-w-md px-5 py-6;
+}
+
+/* Header */
+
+.receipt-header {
+  @apply mb-6 flex items-center justify-between;
+}
+
+.receipt-header-left {
+  @apply flex items-center gap-4;
+}
+
+.receipt-back {
+  @apply flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm;
+}
+
+.receipt-page-title {
+  @apply text-xl font-bold text-text;
+}
+
+/* Receipt Image */
+
+.receipt-image-card {
+  @apply overflow-hidden rounded-3xl border border-border bg-white shadow-card;
+}
+
+.receipt-image {
+  @apply h-72 w-full object-cover;
+}
+
+/* Merchant Card */
+
+.merchant-card {
+  @apply mt-6 rounded-3xl bg-white p-5 shadow-card;
+}
+
+.merchant-title {
+  @apply mb-5 text-lg font-bold text-text;
+}
+
+.merchant-grid {
+  @apply space-y-4;
+}
+
+.merchant-field {
+  @apply flex flex-col;
+}
+
+.merchant-label {
+  @apply mb-1 text-sm font-medium text-subtitle;
+}
+
+.merchant-input {
+  @apply h-12 rounded-xl border border-border px-4 outline-none transition focus:border-primary;
+}
+
+/* ==========================================
+   RECEIPT ITEMS
+========================================== */
+
+.receipt-items-card {
+  @apply mt-6 rounded-3xl bg-white p-5 shadow-card;
+}
+
+.receipt-items-title {
+  @apply mb-5 text-lg font-bold text-text;
+}
+
+.receipt-item {
+  @apply mb-5 rounded-2xl border border-border p-4;
+}
+
+.receipt-item-grid {
+  @apply grid grid-cols-2 gap-4;
+}
+
+.receipt-field {
+  @apply flex flex-col;
+}
+
+.receipt-label {
+  @apply mb-1 text-sm font-medium text-subtitle;
+}
+
+.receipt-input {
+  @apply h-11 rounded-xl border border-border px-3 outline-none transition focus:border-primary;
+}
+
+.receipt-delete {
+  @apply mt-4 flex justify-end;
+}
+
+.receipt-delete button {
+  @apply rounded-xl bg-red-50 px-4 py-2 text-danger transition hover:bg-red-100;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.receipt-footer {
+  @apply mt-8 flex gap-3;
+}
+
+.receipt-btn-secondary {
+  @apply flex-1 rounded-2xl border border-border bg-white py-3 font-semibold text-text transition hover:bg-gray-50;
+}
+
+.receipt-btn-danger {
+  @apply flex-1 rounded-2xl bg-red-500 py-3 font-semibold text-white transition hover:bg-red-600;
+}
+
+.receipt-btn-primary {
+  @apply flex-1 rounded-2xl bg-primary py-3 font-semibold text-white shadow-button transition hover:bg-primary-hover;
+}
+
+.receipt-total-card {
+  @apply mt-6 flex items-center justify-between rounded-2xl bg-primary/10 p-4;
+}
+
+.receipt-total-title {
+  @apply text-lg font-semibold text-text;
+}
+
+.receipt-total-value {
+  @apply text-2xl font-bold text-primary;
+}
+
+
+/* ==========================================
+   RECEIPT COMPANY
+========================================== */
+
+.receipt-company {
+  @apply border-y border-blue-200 bg-white py-6 text-center;
+}
+
+.receipt-company-name {
+  @apply text-xl font-bold uppercase tracking-wide text-primary;
+}
+
+.receipt-company-address {
+  @apply mt-3 text-base text-subtitle;
+}
+
+.receipt-company-phone {
+  @apply mt-1 text-base text-subtitle;
+}
+
+/* ==========================================
+   RECEIPT TABLE
+========================================== */
+
+.receipt-table {
+  @apply bg-white;
+}
+
+.receipt-row {
+  @apply grid grid-cols-[1.8fr_70px_100px_40px] items-center border-b border-border px-6 py-5;
+}
+
+.receipt-name {
+  @apply border-none bg-transparent text-base font-medium text-text outline-none;
+}
+
+.receipt-qty {
+  @apply w-14 rounded-lg border border-border px-2 py-2 text-center outline-none;
+}
+
+.receipt-price {
+  @apply w-24 rounded-lg border border-border px-2 py-2 text-right outline-none;
+}
+
+.receipt-delete-btn {
+  @apply flex h-10 w-10 items-center justify-center rounded-lg text-danger transition hover:bg-red-50;
+}
+
+.receipt-name {
+  @apply rounded-md border border-transparent bg-transparent px-2 py-2 text-base font-medium text-text outline-none transition focus:border-primary focus:bg-white;
+}
+
+.receipt-qty,
+.receipt-price {
+  @apply rounded-md border border-transparent bg-transparent px-2 py-2 text-center outline-none transition focus:border-primary focus:bg-white;
+}
+
+.receipt-price {
+  @apply text-right;
+}
