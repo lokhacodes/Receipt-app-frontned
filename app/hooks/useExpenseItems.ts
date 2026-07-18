@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ExpenseItemType } from "../types/expense";
+import { ExpenseItemType } from "../../types/expense";
 
 export function useExpenseItems() {
   const [items, setItems] = useState<ExpenseItemType[]>([

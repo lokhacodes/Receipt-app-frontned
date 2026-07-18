@@ -1,71 +1,79 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { ReceiptItem } from "@/types/receipt";
 
-export interface ReceiptItem {
-  id: number;
-  name: string;
-  quantity: number;
-  price: number;
-}
-
-interface ReceiptRowProps {
+interface Props {
   item: ReceiptItem;
-  onDelete: (id: number) => void;
-  onUpdate: (
-    id: number,
+  index: number;
+  updateItem: (
+    index: number,
     field: keyof ReceiptItem,
     value: string | number
   ) => void;
+  deleteItem: (index: number) => void;
 }
 
-export default function ReceiptRow({
+export default function ReceiptItemRow({
   item,
-  onDelete,
-  onUpdate,
-}: ReceiptRowProps) {
+  index,
+  updateItem,
+  deleteItem,
+}: Props) {
   return (
-    <div className="receipt-row">
+    <div className="flex items-center gap-3 rounded-lg bg-white p-3 shadow-sm">
+
+      {/* Item Name */}
 
       <input
-        className="receipt-name"
+        type="text"
         value={item.name}
         onChange={(e) =>
-          onUpdate(item.id, "name", e.target.value)
+          updateItem(index, "name", e.target.value)
         }
+        placeholder="Item Name"
+        className="flex-1 rounded-md border border-gray-300 px-3 py-2 outline-none focus:border-blue-500"
       />
+
+      {/* Quantity */}
 
       <input
         type="number"
-        className="receipt-qty"
+        min={1}
         value={item.quantity}
         onChange={(e) =>
-          onUpdate(
-            item.id,
+          updateItem(
+            index,
             "quantity",
             Number(e.target.value)
           )
         }
+        className="w-16 rounded-md border border-gray-300 px-2 py-2 text-center outline-none focus:border-blue-500"
       />
+
+      {/* Price */}
 
       <input
         type="number"
-        className="receipt-price"
+        step="0.01"
+        min={0}
         value={item.price}
         onChange={(e) =>
-          onUpdate(
-            item.id,
+          updateItem(
+            index,
             "price",
             Number(e.target.value)
           )
         }
+        className="w-24 rounded-md border border-gray-300 px-2 py-2 text-center outline-none focus:border-blue-500"
       />
 
+      {/* Delete */}
+
       <button
-        className="receipt-delete-btn"
-        onClick={() => onDelete(item.id)}
+        onClick={() => deleteItem(index)}
+        className="flex h-10 w-10 items-center justify-center rounded-md bg-red-500 text-white transition hover:bg-red-600"
       >
-        <Trash2 size={18} />
+        🗑
       </button>
 
     </div>

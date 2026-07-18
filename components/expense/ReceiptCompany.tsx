@@ -1,29 +1,64 @@
-interface ReceiptCompanyProps {
-  company: string;
-  address: string;
-  phone: string;
+"use client";
+
+import { ReceiptData } from "@/types/receipt";
+
+interface Props {
+  receipt: ReceiptData;
+  setReceipt: React.Dispatch<React.SetStateAction<ReceiptData>>;
 }
 
 export default function ReceiptCompany({
-  company,
-  address,
-  phone,
-}: ReceiptCompanyProps) {
+  receipt,
+  setReceipt,
+}: Props) {
   return (
-    <section className="receipt-company">
+    <div className="bg-white border-b">
 
-      <h2 className="receipt-company-name">
-        {company}
-      </h2>
+      <div className="py-8 text-center">
 
-      <p className="receipt-company-address">
-        Address: {address}
-      </p>
+        {/* Merchant */}
 
-      <p className="receipt-company-phone">
-        Phone: {phone}
-      </p>
+        <input
+          value={receipt.merchant}
+          onChange={(e) =>
+            setReceipt({
+              ...receipt,
+              merchant: e.target.value,
+            })
+          }
+          className="w-full text-center text-3xl font-bold text-blue-700 outline-none"
+        />
 
-    </section>
+        {/* Address */}
+
+        <input
+          value={receipt.address}
+          onChange={(e) =>
+            setReceipt({
+              ...receipt,
+              address: e.target.value,
+            })
+          }
+          placeholder="Address"
+          className="mt-3 w-full text-center text-gray-700 outline-none"
+        />
+
+        {/* Phone */}
+
+        <input
+          value={receipt.phone}
+          onChange={(e) =>
+            setReceipt({
+              ...receipt,
+              phone: e.target.value,
+            })
+          }
+          placeholder="Phone"
+          className="mt-2 w-full text-center text-gray-600 outline-none"
+        />
+
+      </div>
+
+    </div>
   );
 }

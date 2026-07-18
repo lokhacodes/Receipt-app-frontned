@@ -1,10 +1,11 @@
 "use client";
 
 import { Camera, Image, X } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import ReceiptOption from "./ReceiptOption";
+import { ReceiptData } from "@/types/receipt";
 
 interface Props {
   open: boolean;
@@ -20,34 +21,73 @@ export default function ReceiptModal({
   const cameraInput = useRef<HTMLInputElement>(null);
   const galleryInput = useRef<HTMLInputElement>(null);
 
+  const [loading, setLoading] = useState(false);
+  const [preview, setPreview] = useState<string>();
+
   if (!open) return null;
 
-  const handleImage = (
+  const handleImage = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const file = e.target.files?.[0];
+    try {
+      const file = e.target.files?.[0];
 
-    if (!file) return;
+      if (!file) return;
 
-    const imageUrl = URL.createObjectURL(file);
+      // Preview (optional)
+      const imageUrl = URL.createObjectURL(file);
+      setPreview(imageUrl);
 
-    sessionStorage.setItem(
-      "receiptImage",
-      imageUrl
-    );
+      setLoading(true);
 
-    onClose();
+      const formData = new FormData();
+      formData.append("receipt", file);
 
-    router.push("/dashboard/expense/create-expense");
+      const response = await fetch(
+        "http://localhost:4001/api/receipts/scan",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("OCR Failed");
+      }
+
+      const data: ReceiptData = await response.json();
+
+      // Save OCR result
+      localStorage.setItem(
+        "receipt",
+        JSON.stringify(data)
+      );
+
+      // Optional: save preview image
+      localStorage.setItem("receiptImage", imageUrl);
+
+      onClose();
+
+      router.push("/dashboard/expense/review");
+      // or:
+      // router.push("/dashboard/expense/create-expense");
+
+    } catch (error) {
+      console.error(error);
+      alert("Unable to scan receipt");
+    } finally {
+      setLoading(false);
+
+      // Allow selecting the same image again
+      e.target.value = "";
+    }
   };
 
   return (
     <div className="modal-overlay">
-
       <div className="receipt-modal">
 
         <div className="receipt-modal-header">
-
           <h2 className="receipt-modal-title">
             Scan Receipt
           </h2>
@@ -58,7 +98,6 @@ export default function ReceiptModal({
           >
             <X size={20} />
           </button>
-
         </div>
 
         <div className="receipt-options">
@@ -66,9 +105,7 @@ export default function ReceiptModal({
           <ReceiptOption
             icon={Camera}
             title="Take Photo"
-            onClick={() =>
-              cameraInput.current?.click()
-            }
+            onClick={() => cameraInput.current?.click()}
           />
 
           <div className="receipt-divider">
@@ -79,12 +116,24 @@ export default function ReceiptModal({
             icon={Image}
             title="Choose from Gallery"
             gallery
-            onClick={() =>
-              galleryInput.current?.click()
-            }
+            onClick={() => galleryInput.current?.click()}
           />
 
         </div>
+
+        {preview && (
+          <img
+            src={preview}
+            alt="Receipt Preview"
+            className="mt-4 rounded border"
+          />
+        )}
+
+        {loading && (
+          <p className="mt-4 text-center">
+            Reading receipt...
+          </p>
+        )}
 
         <input
           ref={cameraInput}
@@ -104,7 +153,6 @@ export default function ReceiptModal({
         />
 
       </div>
-
     </div>
   );
 }
