@@ -44,16 +44,19 @@ export default function ReviewPage() {
     try {
       setSaving(true);
 
-      const response = await fetch(
-        "http://localhost:4001/api/receipts",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(receipt),
-        }
-      );
+      const token = localStorage.getItem("accessToken");
+
+const response = await fetch(
+  "http://localhost:4001/api/receipts",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(receipt),
+  }
+);
 
       if (!response.ok) {
         throw new Error("Unable to save receipt");
@@ -120,7 +123,7 @@ export default function ReviewPage() {
 
       <ReceiptFooter
         loading={saving}
-        onRetake={() => router.push("/scan")}
+        onRetake={() => router.push("/dashboard")}
         onCancel={() => {
           localStorage.removeItem("receipt");
           router.push("/dashboard");

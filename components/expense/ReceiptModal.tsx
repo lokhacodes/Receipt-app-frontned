@@ -43,11 +43,22 @@ export default function ReceiptModal({
       const formData = new FormData();
       formData.append("receipt", file);
 
+      const token = localStorage.getItem("accessToken");
+
+if (!token) {
+  alert("Please login again.");
+  router.push("/");
+  return;
+}
+
       const response = await fetch(
         "http://localhost:4001/api/receipts/scan",
         {
           method: "POST",
-          body: formData,
+           headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
         }
       );
 
