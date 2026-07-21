@@ -14,7 +14,7 @@ export default function ReceiptFooter({
   loading = false,
 }: Props) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 border-t bg-white px-4 py-4 shadow-lg">
+    <div className="fixed bottom-0 left-0 right-0 border-t bg-white px-4 py-4 shadow-lg border-blue-600">
 
       <div className="mx-auto flex max-w-md gap-3">
 

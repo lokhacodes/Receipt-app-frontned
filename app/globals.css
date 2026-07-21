@@ -892,3 +892,195 @@
 .receipt-price {
   @apply text-right;
 }
+
+/* ==========================================
+   EXPENSE PAGE
+========================================== */
+
+.expense-page {
+  @apply min-h-screen bg-background pb-28;
+}
+
+.expense-container {
+  @apply w-full px-5 py-6;
+}
+
+/* Header */
+
+.expense-header {
+  @apply mb-6 flex items-start justify-between;
+}
+
+.expense-header-left {
+  @apply flex flex-col;
+}
+
+.expense-title {
+  @apply text-4xl font-bold text-text;
+}
+
+.expense-subtitle {
+  @apply mt-1 text-subtitle;
+}
+
+.expense-header-right {
+  @apply flex items-center gap-3;
+}
+
+/* Add Button */
+
+.expense-add-btn {
+  @apply flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-white shadow-button transition hover:bg-primary-hover;
+}
+
+/* Notification */
+
+.expense-notification-btn {
+  @apply flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-card transition hover:bg-gray-50;
+}
+
+/* Search */
+
+.expense-search {
+  @apply mt-6;
+}
+
+.expense-search-box {
+  @apply flex items-center gap-3 rounded-2xl border border-border bg-white px-5 py-4 shadow-input;
+}
+
+.expense-search-input {
+  @apply w-full bg-transparent outline-none;
+}
+
+/* List */
+
+.expense-list {
+  @apply mt-6 space-y-5;
+}
+
+/* ==========================================
+   EXPENSE CARD
+========================================== */
+
+.expense-card {
+  @apply rounded-3xl bg-white p-5 shadow-card transition hover:shadow-lg;
+}
+
+.expense-card-top {
+  @apply flex items-start justify-between;
+}
+
+.expense-card-info {
+  @apply flex gap-4;
+}
+
+.expense-card-icon {
+  @apply flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-light text-primary;
+}
+
+.expense-card-title {
+  @apply text-2xl font-bold text-text;
+}
+
+.expense-card-merchant {
+  @apply mt-1 text-subtitle;
+}
+
+.expense-card-date {
+  @apply mt-5 text-subtitle;
+}
+
+.expense-card-amount {
+  @apply text-2xl font-bold text-primary;
+}
+
+.expense-card-bottom {
+  @apply mt-4 flex items-center justify-end;
+}
+
+.expense-tag {
+  @apply rounded-full bg-green-100 px-4 py-1 text-sm font-medium text-success;
+}
+
+
+
+/* ==========================================
+   EMPTY EXPENSE
+========================================== */
+
+.empty-expense {
+  @apply flex flex-col items-center py-24;
+}
+
+.empty-expense-image {
+  @apply w-60 max-w-full;
+}
+
+.empty-expense-title {
+  @apply mt-6 text-2xl font-bold text-text;
+}
+
+.empty-expense-subtitle {
+  @apply mt-2 text-subtitle;
+}
+
+.empty-expense-btn {
+  @apply mt-8 rounded-2xl bg-primary px-8 py-3 text-white shadow-button transition hover:bg-primary-hover;
+}
+
+
+/* ==========================================
+   CREATE EXPENSE
+========================================== */
+
+.create-expense-page {
+  @apply min-h-screen bg-background pb-28;
+}
+
+.create-expense-container {
+  @apply w-full px-5 py-6;
+}
+
+.create-expense-form {
+  @apply mt-6 rounded-3xl bg-white p-6 shadow-card;
+}
+
+.create-expense-title {
+  @apply text-3xl font-bold text-text;
+}
+
+.create-expense-group {
+  @apply mt-5;
+}
+
+.create-expense-label {
+  @apply mb-2 block font-medium text-text;
+}
+
+.create-expense-input {
+  @apply block w-full rounded-2xl border border-border bg-white px-4 py-3 outline-none transition focus:border-primary;
+}
+
+.create-expense-textarea {
+  @apply block min-h-28 w-full rounded-2xl border border-border bg-white p-4 outline-none transition focus:border-primary;
+}
+
+.create-expense-row {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2;
+}
+
+.create-expense-actions {
+  @apply mt-8 flex gap-4;
+}
+
+.create-expense-cancel {
+  @apply flex-1 rounded-2xl border border-border bg-white py-4 font-semibold transition hover:bg-gray-50;
+}
+
+.create-expense-save {
+  @apply flex-1 rounded-2xl bg-primary py-4 font-semibold text-white shadow-button transition hover:bg-primary-hover;
+}
+
+
+

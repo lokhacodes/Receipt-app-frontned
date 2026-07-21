@@ -1,6 +1,25 @@
-export interface ExpenseItemType {
+export interface Expense {
   id: string;
-  name: string;
+
+  expense: string;
+
+  merchant: string;
+
+  address: string;
+
+  amount: number;
+
+  currency: string;
+
   quantity: number;
-  price: number;
+
+  category: string;
+
+  description?: string;
+
+  notes?: string;
+
+  date: string;
+
+  inReport: boolean;
 }

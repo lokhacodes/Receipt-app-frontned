@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import ReceiptCompany from "@/components/expense/ReceiptCompany";
-import ReceiptItems from "@/components/expense/ReceiptItems";
-import ReceiptFooter from "@/components/expense/ReceiptFooter";
+import ReceiptCompany from "@/components/receipt/ReceiptCompany";
+import ReceiptItems from "@/components/receipt/ReceiptItems";
+import ReceiptFooter from "@/components/receipt/ReceiptFooter";
 import Header from "@/components/home/Header";
 import { ReceiptData } from "@/types/receipt";
 

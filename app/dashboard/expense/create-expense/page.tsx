@@ -1,70 +1,36 @@
 "use client";
 
-import Header from "@/components/home/Header";
-import ReceiptCompany from "@/components/expense/ReceiptCompany";
-import ReceiptTable from "@/components/expense/ReceiptTable";
-import ReceiptFooter from "@/components/expense/ReceiptFooter";
-import { ReceiptItem } from "@/components/expense/ReceiptRow";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+import ExpenseForm from "@/components/expense/ExpenseForm";
 
 export default function CreateExpensePage() {
-  const receipt = {
-    company: "COMPANY NAME",
-
-    address: "Road 2, Dhanmondi, Dhaka",
-
-    phone: "+8801715000000",
-
-    items: [
-      {
-        id: 1,
-        name: "Caesar Salad",
-        quantity: 4,
-        price: 1536,
-      },
-      {
-        id: 2,
-        name: "Grilled Salmon",
-        quantity: 4,
-        price: 1536,
-      },
-      {
-        id: 3,
-        name: "Cheese Cake",
-        quantity: 4,
-        price: 1536,
-      },
-      {
-        id: 4,
-        name: "Sparkling Water",
-        quantity: 4,
-        price: 1536,
-      },
-    ] as ReceiptItem[],
-  };
+  const router = useRouter();
 
   return (
-    <main className="receipt-page">
+    <main className="create-expense-page">
 
-      {/* Dashboard Header with Back Button */}
-      <Header showBackButton />
+      <section className="create-expense-container">
 
-      {/* Scrollable Content */}
-      <div className="receipt-content">
+        <header className="create-header">
 
-        <ReceiptCompany
-          company={receipt.company}
-          address={receipt.address}
-          phone={receipt.phone}
-        />
+          <button
+            onClick={() => router.back()}
+            className="create-back"
+          >
+            <ArrowLeft size={22} />
+          </button>
 
-        <ReceiptTable
-          items={receipt.items}
-        />
+          <h1 className="create-title">
+            Add Expense
+          </h1>
 
-      </div>
+        </header>
 
-      {/* Bottom Buttons */}
-      <ReceiptFooter />
+        <ExpenseForm />
+
+      </section>
 
     </main>
   );

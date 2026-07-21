@@ -8,7 +8,7 @@ import QuickActions from "@/components/home/QuickActions";
 import ReportList from "@/components/home/ReportList";
 import ExpenseList from "@/components/home/ExpenseList";
 import SectionTitle from "@/components/common/SectionTitle";
-import ReceiptModal from "@/components/expense/ReceiptModal";
+import ReceiptModal from "@/components/receipt/ReceiptModal";
 
 export default function DashboardPage() {
   const [openReceipt, setOpenReceipt] = useState(false);
