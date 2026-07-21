@@ -17,6 +17,14 @@ export default function FooterNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  // Hide footer on specific pages
+  const hideFooter =
+    pathname.startsWith("/dashboard/expense/review");
+
+  if (hideFooter) {
+    return null;
+  }
+
   const menu = [
     {
       name: "Home",
