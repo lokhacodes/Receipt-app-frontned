@@ -4,7 +4,10 @@ import { useState } from "react";
 
 import CategorySelector from "./CategorySelector";
 import CurrencySelect from "./CurrencySelect";
+import { createExpense } from "@/lib/expenseApi";
+import { useRouter } from "next/navigation";
 
+const router = useRouter();
 export default function ExpenseForm() {
   const [expense, setExpense] = useState("");
   const [merchant, setMerchant] = useState("");
@@ -24,24 +27,28 @@ export default function ExpenseForm() {
   const [notes, setNotes] =
     useState("");
 
-  function handleSubmit(
-    e: React.FormEvent
-  ) {
-    e.preventDefault();
+  async function handleSubmit(
+  e: React.FormEvent
+) {
+  e.preventDefault();
 
-    console.log({
-      expense,
-      merchant,
-      address,
-      amount,
-      currency,
-      date,
-      quantity,
-      category,
-      description,
-      notes,
-    });
+  const response = await createExpense({
+    expense,
+    merchant,
+    address,
+    category,
+    amount: Number(amount),
+    currency,
+    date,
+    notes,
+  });
+
+  if (response.success) {
+    router.push("/dashboard/expense");
+  } else {
+    alert(response.message);
   }
+}
 
   return (
     <form
