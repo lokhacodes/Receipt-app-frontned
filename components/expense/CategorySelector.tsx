@@ -1,16 +1,17 @@
+"use client";
+
 interface Props {
   value: string;
   onChange: (value: string) => void;
 }
 
 const categories = [
+  "Meals",
+  "Others",
   "Food",
-  "Travel",
-  "Office",
-  "Accommodation",
-  "Transport",
-  "Entertainment",
-  "Other",
+  "Drink",
+  "Groceries",
+  "Transportation",
 ];
 
 export default function CategorySelector({
@@ -18,21 +19,21 @@ export default function CategorySelector({
   onChange,
 }: Props) {
   return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="expense-select"
-    >
-      <option value="">Select Category</option>
-
-      {categories.map((category) => (
-        <option
-          key={category}
-          value={category}
+    <div className="expense-category-grid">
+      {categories.map((item) => (
+        <button
+          key={item}
+          type="button"
+          onClick={() => onChange(item)}
+          className={`expense-category ${
+            value === item
+              ? "expense-category-active"
+              : ""
+          }`}
         >
-          {category}
-        </option>
+          {item}
+        </button>
       ))}
-    </select>
+    </div>
   );
 }

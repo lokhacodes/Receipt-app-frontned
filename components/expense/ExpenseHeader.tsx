@@ -30,7 +30,7 @@ export default function ExpenseHeader({
       <div className="expense-header-right">
 
         <button
-          onClick={() => router.push("/dashboard/create-expense")}
+          onClick={() => router.push("/dashboard/expense/create-expense")}
           className="expense-add-btn"
         >
           <Plus size={18} />

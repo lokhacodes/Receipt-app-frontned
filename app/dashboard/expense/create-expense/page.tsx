@@ -11,15 +11,16 @@ export default function CreateExpensePage() {
   return (
     <main className="create-expense-page">
 
-      <section className="create-expense-container">
+      <div className="create-expense-container">
 
         <header className="create-header">
 
           <button
+            type="button"
             onClick={() => router.back()}
             className="create-back"
           >
-            <ArrowLeft size={22} />
+            <ArrowLeft size={24} />
           </button>
 
           <h1 className="create-title">
@@ -30,7 +31,7 @@ export default function CreateExpensePage() {
 
         <ExpenseForm />
 
-      </section>
+      </div>
 
     </main>
   );

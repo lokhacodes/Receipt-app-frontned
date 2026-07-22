@@ -26,7 +26,7 @@ export default function EmptyExpense() {
       </p>
 
       <button
-        onClick={() => router.push("/dashboard/create-expense")}
+        onClick={() => router.push("/dashboard/expense/create-expense")}
         className="expense-empty-btn"
       >
         Add Receipt

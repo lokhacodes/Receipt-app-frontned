@@ -1,11 +1,15 @@
+"use client";
+
+import { ChevronDown } from "lucide-react";
+
 interface Props {
   value: string;
   onChange: (value: string) => void;
 }
 
 const currencies = [
-  "BDT",
   "USD",
+  "BDT",
   "EUR",
   "GBP",
 ];
@@ -15,19 +19,30 @@ export default function CurrencySelect({
   onChange,
 }: Props) {
   return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="expense-select"
-    >
-      {currencies.map((currency) => (
-        <option
-          key={currency}
-          value={currency}
-        >
-          {currency}
-        </option>
-      ))}
-    </select>
+    <div className="expense-currency">
+
+      <select
+        value={value}
+        onChange={(e) =>
+          onChange(e.target.value)
+        }
+        className="expense-select"
+      >
+        {currencies.map((currency) => (
+          <option
+            key={currency}
+            value={currency}
+          >
+            {currency}
+          </option>
+        ))}
+      </select>
+
+      <ChevronDown
+        size={18}
+        className="expense-select-icon"
+      />
+
+    </div>
   );
 }
