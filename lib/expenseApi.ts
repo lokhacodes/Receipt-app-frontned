@@ -1,75 +1,155 @@
 const API_URL = "http://localhost:4001/api/expenses";
 
 function getToken() {
-  return localStorage.getItem("token");
+  return localStorage.getItem("accessToken");
 }
 
-/* Create Expense */
+/* ==========================================
+   CREATE EXPENSE
+========================================== */
 
 export async function createExpense(data: any) {
-  const res = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-  return res.json();
+    if (!res.ok) {
+      return {
+        success: false,
+        message: await res.text(),
+      };
+    }
+
+    return await res.json();
+  } catch {
+    return {
+      success: false,
+      message: "Unable to connect to the server.",
+    };
+  }
 }
 
-/* Get Expenses */
+/* ==========================================
+   GET ALL EXPENSES
+========================================== */
 
 export async function getExpenses() {
-  const res = await fetch(API_URL, {
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
+  try {
+    const res = await fetch(API_URL, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
 
-  return res.json();
+    if (!res.ok) {
+      return {
+        success: false,
+        message: await res.text(),
+      };
+    }
+
+    return await res.json();
+  } catch {
+    return {
+      success: false,
+      message: "Unable to connect to the server.",
+    };
+  }
 }
 
-/* Get Single Expense */
+/* ==========================================
+   GET SINGLE EXPENSE
+========================================== */
 
 export async function getExpense(id: string) {
-  const res = await fetch(`${API_URL}/${id}`, {
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
+  try {
+    const res = await fetch(`${API_URL}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
 
-  return res.json();
+    if (!res.ok) {
+      return {
+        success: false,
+        message: await res.text(),
+      };
+    }
+
+    return await res.json();
+  } catch {
+    return {
+      success: false,
+      message: "Unable to connect to the server.",
+    };
+  }
 }
 
-/* Update */
+/* ==========================================
+   UPDATE EXPENSE
+========================================== */
 
 export async function updateExpense(
   id: string,
   data: any
 ) {
-  const res = await fetch(`${API_URL}/${id}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  try {
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-  return res.json();
+    if (!res.ok) {
+      return {
+        success: false,
+        message: await res.text(),
+      };
+    }
+
+    return await res.json();
+  } catch {
+    return {
+      success: false,
+      message: "Unable to connect to the server.",
+    };
+  }
 }
 
-/* Delete */
+/* ==========================================
+   DELETE EXPENSE
+========================================== */
 
 export async function deleteExpense(id: string) {
-  const res = await fetch(`${API_URL}/${id}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
+  try {
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
 
-  return res.json();
+    if (!res.ok) {
+      return {
+        success: false,
+        message: await res.text(),
+      };
+    }
+
+    return await res.json();
+  } catch {
+    return {
+      success: false,
+      message: "Unable to connect to the server.",
+    };
+  }
 }

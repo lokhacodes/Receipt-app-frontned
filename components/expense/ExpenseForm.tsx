@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import CategorySelector from "./CategorySelector";
 import CurrencySelect from "./CurrencySelect";
 import { createExpense } from "@/lib/expenseApi";
-import { useRouter } from "next/navigation";
 
-const router = useRouter();
 export default function ExpenseForm() {
+  const router = useRouter();
+
   const [expense, setExpense] = useState("");
   const [merchant, setMerchant] = useState("");
   const [address, setAddress] = useState("");
@@ -21,190 +22,148 @@ export default function ExpenseForm() {
 
   const [category, setCategory] = useState("");
 
-  const [description, setDescription] =
-    useState("");
+  const [description, setDescription] = useState("");
+  const [notes, setNotes] = useState("");
 
-  const [notes, setNotes] =
-    useState("");
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
 
-  async function handleSubmit(
-  e: React.FormEvent
-) {
-  e.preventDefault();
+    const response = await createExpense({
+      expense,
+      merchant,
+      address,
+      amount: Number(amount),
+      currency,
+      quantity: Number(quantity),
+      category,
+      description,
+      notes,
+      expense_date: date,
+    });
 
-  const response = await createExpense({
-    expense,
-    merchant,
-    address,
-    category,
-    amount: Number(amount),
-    currency,
-    date,
-    notes,
-  });
-
-  if (response.success) {
-    router.push("/dashboard/expense");
-  } else {
-    alert(response.message);
+    if (response.success) {
+      router.push("/dashboard/expense");
+    } else {
+      alert(response.message);
+    }
   }
-}
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="expense-form"
-    >
-
-      {/* Expense */}
+    <form onSubmit={handleSubmit} className="expense-form">
 
       <div className="expense-field">
-
-        <label className="expense-label">
-  Expense
-  <span className="expense-required">*</span>
-</label>
-
-        <input
-           placeholder="Expense name"
-          className="expense-input"
-          value={expense}
-          onChange={(e) =>
-            setExpense(e.target.value)
-          }
-        />
-
-      </div>
-
-      {/* Merchant */}
-
-      <div className="expense-field">
-
-        <label className="expense-label">
-          Merchant
-    <span className="Merchant-required">*</span>
+        <label htmlFor="expense" className="expense-label">
+          Expense <span className="expense-required">*</span>
         </label>
 
         <input
+          id="expense"
+          name="expense"
+          type="text"
+          placeholder="Expense name"
+          className="expense-input"
+          value={expense}
+          onChange={(e) => setExpense(e.target.value)}
+        />
+      </div>
+
+      <div className="expense-field">
+        <label htmlFor="merchant" className="expense-label">
+          Merchant <span className="expense-required">*</span>
+        </label>
+
+        <input
+          id="merchant"
+          name="merchant"
+          type="text"
           placeholder="Merchant name"
           className="expense-input"
           value={merchant}
-          onChange={(e) =>
-            setMerchant(e.target.value)
-          }
+          onChange={(e) => setMerchant(e.target.value)}
         />
-
       </div>
 
-      {/* Address */}
-
       <div className="expense-field">
-
-        <label className="expense-label">
+        <label htmlFor="address" className="expense-label">
           Address
         </label>
 
         <input
+          id="address"
+          name="address"
+          type="text"
           placeholder="Address"
           className="expense-input"
           value={address}
-          onChange={(e) =>
-            setAddress(e.target.value)
-          }
+          onChange={(e) => setAddress(e.target.value)}
         />
-
       </div>
 
-      {/* Amount + Currency */}
-
       <div className="expense-row">
-
         <div className="expense-field">
-
-          <label className="expense-label">
-            Amount 
-              <span className="amount-required">*</span>
+          <label htmlFor="amount" className="expense-label">
+            Amount <span className="expense-required">*</span>
           </label>
 
           <input
-            placeholder="0.00"
+            id="amount"
+            name="amount"
             type="number"
+            placeholder="0.00"
             className="expense-input"
             value={amount}
-            onChange={(e) =>
-              setAmount(e.target.value)
-            }
+            onChange={(e) => setAmount(e.target.value)}
           />
-
         </div>
 
         <div className="expense-field">
-
           <label className="expense-label">
-            Currency 
-              <span className="currency-required">*</span>
+            Currency <span className="expense-required">*</span>
           </label>
 
           <CurrencySelect
             value={currency}
             onChange={setCurrency}
           />
-
         </div>
-
       </div>
 
-      {/* Date + Quantity */}
-
       <div className="expense-row">
-
         <div className="expense-field">
-
-          <label className="expense-label">
-            Expense Date 
-              <span className="expense-date-required">*</span>
+          <label htmlFor="expense_date" className="expense-label">
+            Expense Date <span className="expense-required">*</span>
           </label>
 
           <input
+            id="expense_date"
+            name="expense_date"
             type="date"
             className="expense-input"
             value={date}
-            onChange={(e) =>
-              setDate(e.target.value)
-            }
+            onChange={(e) => setDate(e.target.value)}
           />
-
         </div>
 
         <div className="expense-field">
-
-          <label className="expense-label">
-            Quantity 
-              <span className="Quantity-required">*</span>
+          <label htmlFor="quantity" className="expense-label">
+            Quantity <span className="expense-required">*</span>
           </label>
 
           <input
-            placeholder="1"
+            id="quantity"
+            name="quantity"
             type="number"
             min={1}
             className="expense-input"
             value={quantity}
-            onChange={(e) =>
-              setQuantity(e.target.value)
-            }
+            onChange={(e) => setQuantity(e.target.value)}
           />
-
         </div>
-
       </div>
 
-      {/* Categories */}
-
       <div className="expense-field">
-
         <label className="expense-label">
-          Categories 
-            <span className="categories-required">*</span>
+          Category <span className="expense-required">*</span>
         </label>
 
         <CategorySelector
@@ -214,79 +173,66 @@ export default function ExpenseForm() {
 
         {!category && (
           <p className="expense-error">
-            Please select at least one category
+            Please select a category.
           </p>
         )}
-
       </div>
 
-      {/* Description */}
-
       <div className="expense-field">
-
-        <label className="expense-label">
+        <label htmlFor="description" className="expense-label">
           Description
         </label>
 
         <textarea
-          
+          id="description"
+          name="description"
           rows={3}
           className="expense-textarea"
-          placeholder="Brief description (optional)"
+          placeholder="Brief description"
           value={description}
-          onChange={(e) =>
-            setDescription(e.target.value)
-          }
+          onChange={(e) => setDescription(e.target.value)}
         />
-
       </div>
 
-      {/* Notes */}
-
       <div className="expense-field">
-
-        <label className="expense-label">
+        <label htmlFor="notes" className="expense-label">
           Notes
         </label>
 
         <textarea
-           
+          id="notes"
+          name="notes"
           rows={5}
           className="expense-textarea"
-          placeholder="Additional notes (optional)"
+          placeholder="Additional notes"
           value={notes}
-          onChange={(e) =>
-            setNotes(e.target.value)
-          }
+          onChange={(e) => setNotes(e.target.value)}
         />
-
       </div>
-     
 
-     <div className="expense-actions">
+      <div className="expense-actions">
+        <button
+          type="button"
+          className="expense-cancel-btn"
+        >
+          ✕ <span>Cancel</span>
+        </button>
 
-  <button
-    type="button"
-    className="expense-cancel-btn"
-  >
-    ✕
-    <span>Cancel</span>
-  </button>
+        <button
+          type="submit"
+          disabled={
+            !expense ||
+            !merchant ||
+            !amount ||
+            !category ||
+            !date
+          }
+          className="expense-save-btn"
+        >
+          Save
+        </button>
+      </div>
 
-  <button
-    type="submit"
-    disabled={
-      !expense ||
-      !merchant ||
-      !amount ||
-      !category
-    }
-    className="expense-save-btn"
-  >
-    Save
-  </button>
-
-</div>
     </form>
   );
 }
