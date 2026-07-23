@@ -972,7 +972,12 @@
          border-border
          bg-white
          p-5
-         shadow-sm;
+         shadow-sm
+         cursor-pointer
+         transition-all
+         duration-200
+         hover:shadow-lg
+         hover:-translate-y-1;
 }
 
 .expense-card-left {
@@ -1229,4 +1234,120 @@
 
 .expense-save-btn:disabled {
   @apply cursor-not-allowed bg-gray-200 text-gray-500 shadow-none;
+}
+
+/* ==========================================
+   EXPENSE DETAILS
+========================================== */
+
+.expense-detail-page {
+  @apply min-h-screen bg-background pb-28;
+}
+
+.expense-detail-container {
+  @apply w-full px-5 py-6;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.expense-detail-header {
+  @apply relative mb-8 flex items-center justify-center;
+}
+
+.expense-detail-back {
+  @apply absolute left-0 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-card transition hover:bg-gray-50;
+}
+
+.expense-detail-title {
+  @apply text-4xl font-bold text-text;
+}
+
+.expense-detail-actions {
+  @apply absolute right-0 flex items-center gap-3;
+}
+
+.expense-detail-icon-btn {
+  @apply flex h-11 w-11 items-center justify-center rounded-full bg-white text-subtitle shadow-card transition hover:bg-gray-50;
+}
+
+.expense-detail-icon-btn.delete {
+  @apply text-danger;
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.expense-detail-card {
+  @apply rounded-3xl border border-border bg-white p-6 shadow-card;
+}
+
+.expense-detail-name {
+  @apply text-4xl font-bold text-text;
+}
+
+.expense-detail-meta {
+  @apply mt-4 space-y-3;
+}
+
+.expense-detail-row {
+  @apply flex items-center gap-3 text-subtitle;
+}
+
+.expense-detail-category {
+  @apply mt-6 inline-flex items-center rounded-xl border border-[#E6D8FF] bg-[#F7F1FF] px-5 py-3 text-base font-semibold text-[#8B5CF6];
+}
+
+/* ==========================================
+   AMOUNT
+========================================== */
+
+.expense-detail-amount-box {
+  @apply mt-10;
+}
+
+.expense-detail-amount-label {
+  @apply text-lg text-subtitle;
+}
+
+.expense-detail-amount {
+  @apply mt-2 text-5xl font-bold text-text;
+}
+
+.expense-detail-currency {
+  @apply ml-2 text-2xl font-medium text-subtitle;
+}
+
+/* ==========================================
+   INFO
+========================================== */
+
+.expense-detail-info {
+  @apply mt-12 space-y-6;
+}
+
+.expense-detail-item {
+  @apply flex items-start gap-4;
+}
+
+.expense-detail-item-icon {
+  @apply flex
+         h-12
+         w-12
+         items-center
+         justify-center
+         rounded-xl
+         bg-primary-light
+         text-primary
+         shrink-0;
+}
+
+.expense-detail-item-label {
+  @apply text-base text-subtitle;
+}
+
+.expense-detail-item-value {
+  @apply mt-1 text-lg font-semibold text-text;
 }

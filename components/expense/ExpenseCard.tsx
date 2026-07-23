@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 import type { Expense } from "@/types/expense";
+import { useRouter } from "next/navigation";
 
 interface ExpenseCardProps {
   expense: Expense;
@@ -16,8 +17,14 @@ interface ExpenseCardProps {
 export default function ExpenseCard({
   expense,
 }: ExpenseCardProps) {
+  const router = useRouter();
   return (
-    <div className="expense-card">
+    <div
+  className="expense-card"
+  onClick={() =>
+    router.push(`/dashboard/expense/${expense.id}`)
+  }
+>
 
       <div className="expense-card-left">
 
