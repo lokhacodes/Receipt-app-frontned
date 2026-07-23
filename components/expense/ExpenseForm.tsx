@@ -5,31 +5,38 @@ import { useRouter } from "next/navigation";
 
 import CategorySelector from "./CategorySelector";
 import CurrencySelect from "./CurrencySelect";
-import { createExpense } from "@/lib/expenseApi";
+import { createExpense, updateExpense } from "@/lib/expenseApi";
+import type { Expense } from "@/types/expense";
 
-export default function ExpenseForm() {
+interface ExpenseFormProps {
+  type: "Create" | "Update";
+  expense?: Expense;
+  expenseId?: string;
+}
+
+export default function ExpenseForm({ type, expense, expenseId }: ExpenseFormProps) {
   const router = useRouter();
 
-  const [expense, setExpense] = useState("");
-  const [merchant, setMerchant] = useState("");
-  const [address, setAddress] = useState("");
+  const [expenseName, setExpenseName] = useState(expense?.expense ?? "");
+  const [merchant, setMerchant] = useState(expense?.merchant ?? "");
+  const [address, setAddress] = useState(expense?.address ?? "");
 
-  const [amount, setAmount] = useState("");
-  const [currency, setCurrency] = useState("USD");
+  const [amount, setAmount] = useState(expense?.amount ? String(expense.amount) : "");
+  const [currency, setCurrency] = useState(expense?.currency ?? "USD");
 
-  const [date, setDate] = useState("");
-  const [quantity, setQuantity] = useState("1");
+  const [date, setDate] = useState(expense?.date ?? "");
+  const [quantity, setQuantity] = useState(expense?.quantity ? String(expense.quantity) : "1");
 
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(expense?.category ?? "");
 
-  const [description, setDescription] = useState("");
-  const [notes, setNotes] = useState("");
+  const [description, setDescription] = useState(expense?.description ?? "");
+  const [notes, setNotes] = useState(expense?.notes ?? "");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const response = await createExpense({
-      expense,
+    const payload = {
+      expense: expenseName,
       merchant,
       address,
       amount: Number(amount),
@@ -39,7 +46,16 @@ export default function ExpenseForm() {
       description,
       notes,
       expense_date: date,
-    });
+      in_report: expense?.inReport ?? false,
+    };
+
+    let response;
+
+    if (type === "Create") {
+      response = await createExpense(payload);
+    } else {
+      response = await updateExpense(expenseId!, payload);
+    }
 
     if (response.success) {
       router.push("/dashboard/expense");
@@ -62,8 +78,8 @@ export default function ExpenseForm() {
           type="text"
           placeholder="Expense name"
           className="expense-input"
-          value={expense}
-          onChange={(e) => setExpense(e.target.value)}
+          value={expenseName}
+          onChange={(e) => setExpenseName(e.target.value)}
         />
       </div>
 
@@ -221,7 +237,7 @@ export default function ExpenseForm() {
         <button
           type="submit"
           disabled={
-            !expense ||
+            !expenseName ||
             !merchant ||
             !amount ||
             !category ||
@@ -229,7 +245,7 @@ export default function ExpenseForm() {
           }
           className="expense-save-btn"
         >
-          Save
+          {type === "Create" ? "Save" : "Update"}
         </button>
       </div>
 

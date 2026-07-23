@@ -29,7 +29,7 @@ export default function CreateExpensePage() {
 
         </header>
 
-        <ExpenseForm />
+        <ExpenseForm type="Create" />
 
       </div>
 
