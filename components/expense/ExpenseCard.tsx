@@ -54,9 +54,12 @@ export default function ExpenseCard({
 
           </div>
 
-          <p className="expense-card-date">
-            {expense.date}
-          </p>
+         
+           <p className="expense-card-date">
+                {new Date(expense.date).toLocaleString("en-US", {
+                 dateStyle: "medium",
+                 })}
+              </p>
 
           <div className="expense-card-tags">
 
