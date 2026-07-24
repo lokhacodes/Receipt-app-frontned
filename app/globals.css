@@ -1376,3 +1376,120 @@
 .report-empty-btn {
   @apply mt-8 rounded-2xl bg-primary px-8 py-3 text-white shadow-button transition hover:bg-primary-hover;
 }
+
+/* ==========================================
+   CREATE REPORT PAGE
+========================================== */
+
+.create-report-page {
+  @apply min-h-screen bg-background pb-28;
+}
+
+.create-report-container {
+  @apply w-full px-5 py-6;
+}
+
+.create-report-header {
+  @apply relative mb-8 flex items-center justify-center;
+}
+
+.create-report-back {
+  @apply absolute left-0 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-card transition hover:bg-gray-50;
+}
+
+.create-report-title {
+  @apply text-4xl font-bold text-text;
+}
+
+
+/* ==========================================
+   REPORT FORM
+========================================== */
+
+.report-form {
+  @apply rounded-3xl bg-white p-6 shadow-card;
+}
+
+.report-field {
+  @apply mb-6;
+}
+
+.report-label {
+  @apply mb-2 block text-base font-semibold text-text;
+}
+
+.report-input {
+  @apply h-14 w-full rounded-2xl border border-border bg-background px-4 outline-none;
+}
+
+.report-textarea {
+  @apply min-h-[120px] w-full rounded-2xl border border-border bg-background px-4 py-3 outline-none;
+}
+
+.report-selected-count {
+  @apply mt-6 text-sm font-semibold text-primary;
+}
+
+.report-submit-btn {
+  @apply mt-8 h-14 w-full rounded-2xl bg-primary text-lg font-semibold text-white shadow-button transition hover:bg-primary-hover;
+}
+
+/* ==========================================
+   EXPENSE SELECTOR
+========================================== */
+
+.report-expense-list {
+  @apply mt-4 space-y-4;
+}
+
+.report-expense-card {
+  @apply flex w-full items-start gap-4 rounded-2xl border border-border bg-white p-4 text-left transition hover:border-primary;
+}
+
+.report-expense-card-active {
+  @apply border-primary bg-primary-light;
+}
+
+.report-checkbox {
+  @apply mt-1 flex h-6 w-6 items-center justify-center rounded-md border border-border;
+}
+
+.report-checkbox-active {
+  @apply border-primary bg-primary text-white;
+}
+
+.report-expense-content {
+  @apply flex-1;
+}
+
+.report-expense-top {
+  @apply flex items-start justify-between;
+}
+
+.report-expense-title {
+  @apply text-lg font-semibold text-text;
+}
+
+.report-expense-amount {
+  @apply font-bold text-primary;
+}
+
+.report-expense-merchant {
+  @apply mt-1 text-subtitle;
+}
+
+.report-expense-bottom {
+  @apply mt-3 flex items-center justify-between;
+}
+
+.report-expense-category {
+  @apply rounded-full bg-primary-light px-3 py-1 text-sm text-primary;
+}
+
+.report-expense-date {
+  @apply text-sm text-subtitle;
+}
+
+.report-no-expenses {
+  @apply rounded-2xl border border-dashed border-border p-8 text-center text-subtitle;
+}
