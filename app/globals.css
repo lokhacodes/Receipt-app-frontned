@@ -1493,3 +1493,143 @@
 .report-no-expenses {
   @apply rounded-2xl border border-dashed border-border p-8 text-center text-subtitle;
 }
+
+/* ==========================================
+   REPORT PAGE
+========================================== */
+
+.report-page {
+  @apply min-h-screen bg-background pb-28;
+}
+
+.report-header {
+  @apply flex items-start justify-between px-5 pt-6;
+}
+
+.report-title {
+  @apply text-4xl font-bold text-text;
+}
+
+.report-subtitle {
+  @apply mt-1 text-subtitle;
+}
+
+.report-header-actions {
+  @apply flex items-center gap-3;
+}
+
+.report-add-btn {
+  @apply flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-white shadow-button transition hover:bg-primary-hover;
+}
+
+.report-notification-btn {
+  @apply flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-card transition hover:bg-gray-50;
+}
+
+/* ==========================================
+   FILTER
+========================================== */
+
+.report-filter {
+  @apply mt-6 px-5;
+}
+
+.report-filter-btn {
+  @apply flex items-center gap-2 rounded-2xl border border-border bg-white px-5 py-3 font-medium shadow-sm transition hover:bg-gray-50;
+}
+
+/* ==========================================
+   TABS
+========================================== */
+
+.report-tabs {
+  @apply mt-5 flex rounded-2xl bg-[#F2F5FA] p-1;
+}
+
+.report-tab {
+  @apply flex-1 rounded-xl py-3 text-center font-medium text-subtitle transition;
+}
+
+.report-tab.active {
+  @apply bg-white text-text shadow-sm;
+}
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.report-loading {
+  @apply flex justify-center py-20 text-subtitle;
+}
+
+/* ==========================================
+   REPORT LIST
+========================================== */
+
+.report-list {
+  @apply mt-6 space-y-5 px-5;
+}
+
+/* ==========================================
+   REPORT CARD
+========================================== */
+
+.report-card {
+  @apply flex items-center justify-between rounded-3xl border border-border bg-white p-5 shadow-sm transition hover:shadow-md;
+}
+
+.report-card-left {
+  @apply flex flex-1 items-center gap-5;
+}
+
+.report-card-icon {
+  @apply flex h-16 w-16 items-center justify-center rounded-2xl bg-yellow-100 text-yellow-600;
+}
+
+.report-card-content {
+  @apply flex-1;
+}
+
+.report-card-top {
+  @apply flex items-start justify-between;
+}
+
+.report-card-title {
+  @apply text-2xl font-bold text-text;
+}
+
+.report-card-amount {
+  @apply text-xl font-bold text-text;
+}
+
+.report-card-date {
+  @apply mt-1 text-subtitle;
+}
+
+.report-card-footer {
+  @apply mt-4 flex items-center gap-3 flex-wrap;
+}
+
+.report-card-arrow {
+  @apply text-subtitle;
+}
+
+/* ==========================================
+   STATUS BADGE
+========================================== */
+
+.report-status {
+  @apply rounded-full border px-3 py-1 text-sm font-medium;
+}
+
+.report-status.pending {
+  @apply border-blue-200 bg-blue-50 text-blue-600;
+}
+
+.report-status.active {
+  @apply border-green-200 bg-green-50 text-green-600;
+}
+
+.report-status.completed {
+  @apply border-gray-300 bg-gray-100 text-gray-700;
+}
