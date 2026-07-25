@@ -1,9 +1,38 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Mail, Pencil, User } from "lucide-react";
+import { Loader2, Mail, Pencil, User } from "lucide-react";
+import { getProfile } from "@/lib/profileApi";
+
+interface UserData {
+  name: string;
+  email: string;
+}
 
 export default function ProfileCard() {
+  const [user, setUser] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProfile() {
+      const res = await getProfile();
+      if (res.success !== false && res.user) {
+        setUser(res.user);
+      }
+      setLoading(false);
+    }
+    fetchProfile();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="profile-card flex items-center justify-center py-8">
+        <Loader2 className="animate-spin text-gray-400" size={24} />
+      </div>
+    );
+  }
+
   return (
     <div className="profile-card">
       <div className="flex items-start justify-between">
@@ -20,11 +49,11 @@ export default function ProfileCard() {
           <div>
 
             <h1 className="profile-info-title">
-              Partha
+              {user?.name || "User"}
             </h1>
 
             <p className="profile-info-subtitle">
-              parthadas@gmail.com
+              {user?.email || ""}
             </p>
 
           </div>
@@ -60,7 +89,7 @@ export default function ProfileCard() {
           </p>
 
           <p className="font-semibold text-text">
-            parthadas@gmail.com
+            {user?.email || ""}
           </p>
 
         </div>

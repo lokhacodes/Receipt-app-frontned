@@ -1,21 +1,69 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronRight, Pencil } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ChevronRight, Loader2, Pencil } from "lucide-react";
 import {
   FaEnvelope,
   FaKey,
   FaUser,
 } from "react-icons/fa";
+import { getProfile, updateProfile } from "@/lib/profileApi";
 
 export default function EditProfileForm() {
-  const [name, setName] = useState("Partha");
-
-  const [email, setEmail] = useState(
-    "parthadas@gmail.com"
-  );
-
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchProfile() {
+      const res = await getProfile();
+      if (res.success !== false && res.user) {
+        setName(res.user.name);
+        setEmail(res.user.email);
+      }
+      setLoading(false);
+    }
+    fetchProfile();
+  }, []);
+
+  const handleSubmit = async () => {
+    if (!name.trim() || !email.trim()) {
+      setError("Name and email are required.");
+      return;
+    }
+
+    setSaving(true);
+    setError("");
+
+    const res = await updateProfile({ name, email });
+
+    if (res.success === false) {
+      setError(res.message || "Failed to update profile.");
+      setSaving(false);
+      return;
+    }
+
+    // Update the access token in localStorage with the new one
+    if (res.accessToken) {
+      localStorage.setItem("accessToken", res.accessToken);
+    }
+
+    setSaving(false);
+    router.push("/dashboard/profile");
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="animate-spin text-gray-400" size={24} />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -113,8 +161,23 @@ export default function EditProfileForm() {
 
       </div>
 
-      <button className="profile-save-btn">
-        Save
+      {error && (
+        <p className="text-red-500 text-sm text-center mb-3">{error}</p>
+      )}
+
+      <button
+        className="profile-save-btn"
+        onClick={handleSubmit}
+        disabled={saving}
+      >
+        {saving ? (
+          <span className="flex items-center justify-center gap-2">
+            <Loader2 className="animate-spin" size={18} />
+            Saving...
+          </span>
+        ) : (
+          "Save"
+        )}
       </button>
     </>
   );
