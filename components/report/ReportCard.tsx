@@ -37,14 +37,17 @@ export default function ReportCard({
               {report.title}
             </h3>
 
+            
+
             <span className="report-card-amount">
               {report.totalAmount.toFixed(2)}{" "}
               {report.baseCurrency}
             </span>
 
           </div>
-
-          <p className="report-card-date">
+           
+           <div  className="report-card-date">
+            <p >
             {new Date(
               report.createdAt
             ).toLocaleDateString("en-GB", {
@@ -53,6 +56,8 @@ export default function ReportCard({
               year: "numeric",
             })}
           </p>
+           </div>
+          
 
           <div className="report-card-footer">
 
