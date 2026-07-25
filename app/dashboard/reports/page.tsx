@@ -25,7 +25,22 @@ export default function ReportsPage() {
     const res = await getReports();
 
     if (res.success) {
-      setReports(res.data);
+      // Map backend snake_case fields to frontend camelCase fields
+      const mapped = (res.data || []).map((item: any) => ({
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        baseCurrency: item.currency || item.baseCurrency || "USD",
+        totalAmount: Number(item.total_amount ?? item.totalAmount ?? 0),
+        status: item.status === "draft"
+          ? "Draft"
+          : item.status === "active"
+          ? "Pending"
+          : "Completed",
+        expenseCount: item.expenseCount ?? item.expense_count ?? 0,
+        createdAt: item.created_at || item.createdAt,
+      }));
+      setReports(mapped);
     }
 
     setLoading(false);

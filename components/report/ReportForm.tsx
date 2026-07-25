@@ -64,7 +64,7 @@ export default function ReportForm({
     const payload = {
       title,
       description,
-      baseCurrency,
+      currency: baseCurrency,
       expenseIds: selectedExpenses,
     };
 
