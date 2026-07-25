@@ -2,15 +2,17 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { User, Lock } from 'lucide-react';
+import { User, Lock, Mail } from 'lucide-react';
 
 type Mode = 'login' | 'register';
 
 export default function AuthPage() {
   const [mode, setMode] = useState<Mode>('login');
 
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,6 +27,11 @@ export default function AuthPage() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    if (mode === 'register' && password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setMessage(null);
@@ -35,16 +42,18 @@ export default function AuthPage() {
           ? `${apiUrl}/login`
           : `${apiUrl}/register`;
 
+      const body =
+        mode === 'login'
+          ? { email, password }
+          : { name, email, password, confirmPassword };
+
       const res = await fetch(endpoint, {
         method: 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+        body: JSON.stringify(body),
       });
 
       const data = await res.json();
@@ -77,6 +86,7 @@ export default function AuthPage() {
       if (mode === 'register') {
         setMode('login');
         setPassword('');
+        setConfirmPassword('');
       }
     } catch (err) {
       setError(
@@ -91,23 +101,16 @@ export default function AuthPage() {
 
   return (
     <div className="w-full">
-      {/* Header */}
-
       <div className="mb-14 text-center">
         <h1 className="text-4xl font-bold tracking-tight text-text">
-          {mode === 'login'
-            ? 'Welcome Back'
-            : 'Create Account'}
+          {mode === 'login' ? 'Welcome Back' : 'Create Account'}
         </h1>
-
         <p className="mt-4 text-base text-subtitle">
           {mode === 'login'
             ? 'Sign in to continue to your dashboard.'
             : 'Create your account to start managing your expenses.'}
         </p>
       </div>
-
-      {/* Toggle */}
 
       <div className="mb-12 grid grid-cols-2 rounded-2xl bg-blue-50 p-1">
         <button
@@ -125,7 +128,6 @@ export default function AuthPage() {
         >
           Login
         </button>
-
         <button
           type="button"
           onClick={() => {
@@ -143,56 +145,52 @@ export default function AuthPage() {
         </button>
       </div>
 
-      {/* Form */}
-
-      <form
-        onSubmit={onSubmit}
-        className="space-y-8"
-      >
-        {/* Username */}
+      <form onSubmit={onSubmit} className="space-y-8">
+        {mode === 'register' && (
+          <div>
+            <label className="mb-3 block text-sm font-medium text-gray-700">
+              Full Name
+            </label>
+            <div className="flex h-14 items-center rounded-2xl border border-gray-200 bg-white px-5 transition-all duration-200 focus-within:border-[#356AE6] focus-within:ring-4 focus-within:ring-blue-100">
+              <User size={20} className="mr-4 text-gray-400" />
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your full name"
+                className="w-full bg-transparent text-gray-700 outline-none placeholder:text-gray-400"
+                required
+              />
+            </div>
+          </div>
+        )}
 
         <div>
           <label className="mb-3 block text-sm font-medium text-gray-700">
-            Username
+            Email
           </label>
-
           <div className="flex h-14 items-center rounded-2xl border border-gray-200 bg-white px-5 transition-all duration-200 focus-within:border-[#356AE6] focus-within:ring-4 focus-within:ring-blue-100">
-            <User
-              size={20}
-              className="mr-4 text-gray-400"
-            />
-
+            <Mail size={20} className="mr-4 text-gray-400" />
             <input
-              value={username}
-              onChange={(e) =>
-                setUsername(e.target.value)
-              }
-              placeholder="Enter your username"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
               className="w-full bg-transparent text-gray-700 outline-none placeholder:text-gray-400"
               required
             />
           </div>
         </div>
 
-                {/* Password */}
-
         <div>
           <label className="mb-3 block text-sm font-medium text-gray-700">
             Password
           </label>
-
           <div className="flex h-14 items-center rounded-2xl border border-gray-200 bg-white px-5 transition-all duration-200 focus-within:border-[#356AE6] focus-within:ring-4 focus-within:ring-blue-100">
-            <Lock
-              size={20}
-              className="mr-4 text-gray-400"
-            />
-
+            <Lock size={20} className="mr-4 text-gray-400" />
             <input
               type="password"
               value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               className="w-full bg-transparent text-gray-700 outline-none placeholder:text-gray-400"
               required
@@ -200,7 +198,24 @@ export default function AuthPage() {
           </div>
         </div>
 
-        {/* Forgot Password */}
+        {mode === 'register' && (
+          <div>
+            <label className="mb-3 block text-sm font-medium text-gray-700">
+              Confirm Password
+            </label>
+            <div className="flex h-14 items-center rounded-2xl border border-gray-200 bg-white px-5 transition-all duration-200 focus-within:border-[#356AE6] focus-within:ring-4 focus-within:ring-blue-100">
+              <Lock size={20} className="mr-4 text-gray-400" />
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm your password"
+                className="w-full bg-transparent text-gray-700 outline-none placeholder:text-gray-400"
+                required
+              />
+            </div>
+          </div>
+        )}
 
         {mode === 'login' && (
           <div className="flex justify-end">
@@ -212,8 +227,6 @@ export default function AuthPage() {
             </button>
           </div>
         )}
-
-        {/* Submit Button */}
 
         <button
           type="submit"
@@ -229,20 +242,12 @@ export default function AuthPage() {
             : 'Create Account'}
         </button>
 
-        {/* Error Message */}
-
         {error && (
-          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-4 text-sm text-red-600">
-            {error}
-          </div>
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-4 text-sm text-red-600">{error}</div>
         )}
 
-        {/* Success Message */}
-
         {message && (
-          <div className="rounded-2xl border border-green-200 bg-green-50 px-4 py-4 text-sm text-green-600">
-            {message}
-          </div>
+          <div className="rounded-2xl border border-green-200 bg-green-50 px-4 py-4 text-sm text-green-600">{message}</div>
         )}
       </form>
     </div>
