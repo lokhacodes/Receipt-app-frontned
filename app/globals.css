@@ -569,55 +569,132 @@
 }
 
 .expense-card {
-  @apply rounded-2xl border border-border bg-card p-4 shadow-sm transition-all duration-200 hover:shadow-card;
+  @apply flex
+  items-center
+  gap-4
+  rounded-2xl
+  border
+  border-border
+  bg-card
+  px-5
+  py-4
+  shadow-sm
+  transition-all
+  duration-200
+  hover:shadow-md;
 }
 
-.expense-top {
-  @apply flex items-start justify-between;
-}
-
-.expense-left {
-  @apply flex gap-4;
-}
+/* Icon */
 
 .expense-icon {
-  @apply flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100;
+  @apply flex
+  h-14
+  w-14
+  shrink-0
+  items-center
+  justify-center
+  rounded-2xl
+  bg-blue-100;
+}
+
+/* Content */
+
+.expense-content {
+  @apply flex-1;
+}
+
+/* Title + Amount */
+
+.expense-header {
+  @apply flex
+  items-start
+  justify-between;
 }
 
 .expense-title {
-  @apply text-lg font-bold text-text;
-}
-
-.expense-merchant {
-  @apply mt-1 text-sm text-subtitle;
-}
-
-.expense-date {
-  @apply mt-1 text-sm text-subtitle;
+  @apply text-xl
+  font-bold
+  leading-none
+  text-text;
 }
 
 .expense-amount {
-  @apply text-lg font-bold text-text;
+  @apply text-base
+  font-semibold
+  text-text;
 }
+
+/* Merchant */
+
+.expense-merchant {
+  @apply mt-1
+  flex
+  items-center
+  gap-1.5
+  text-sm
+  text-subtitle;
+}
+
+/* Date */
+
+.expense-date {
+  @apply mt-0.5
+  text-sm
+  text-subtitle;
+}
+
+/* Bottom Row */
 
 .expense-bottom {
-  @apply mt-4 flex items-center justify-between;
+  @apply mt-3
+  flex
+  items-center
+  justify-between;
 }
+
+/* Tags */
 
 .expense-tags {
-  @apply flex gap-2;
+  @apply flex
+  items-center
+  gap-2;
 }
 
-.expense-tag-food {
-  @apply rounded-full bg-cyan-100 px-3 py-1 text-xs font-medium text-cyan-700;
+.expense-tag {
+  @apply flex
+  items-center
+  gap-1
+  rounded-full
+  bg-cyan-100
+  px-3
+  py-1
+  text-xs
+  font-medium
+  text-cyan-700;
 }
 
 .expense-tag-report {
-  @apply rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700;
+  @apply flex
+  items-center
+  gap-1
+  rounded-full
+  border
+  border-sky-200
+  bg-sky-50
+  px-3
+  py-1
+  text-xs
+  font-medium
+  text-sky-700;
 }
 
+/* Arrow */
+
 .expense-arrow {
-  @apply text-gray-400 transition group-hover:translate-x-1;
+  @apply text-gray-400
+  transition-all
+  duration-200
+  group-hover:translate-x-1;
 }
 
 /* ==========================================

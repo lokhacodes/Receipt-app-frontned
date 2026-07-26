@@ -2,6 +2,9 @@ import Link from "next/link";
 import {
   ChevronRight,
   ReceiptText,
+  Store,
+  Tag,
+  Paperclip,
 } from "lucide-react";
 
 interface Props {
@@ -26,68 +29,68 @@ export default function ExpenseCard({
   return (
     <Link
       href={`/dashboard/expense/${id}`}
-      className="group expense-card block"
+      className="group expense-card"
     >
-      <div className="expense-top">
+      {/* Left Icon */}
+      <div className="expense-icon">
+        <ReceiptText
+          size={22}
+          className="text-primary"
+        />
+      </div>
 
-        <div className="expense-left">
+      {/* Right Content */}
+      <div className="expense-content">
 
-          <div className="expense-icon">
+        {/* Title & Amount */}
+        <div className="expense-header">
+          <h3 className="expense-title">
+            {title}
+          </h3>
 
-            <ReceiptText
-              size={22}
-              className="text-primary"
-            />
-
-          </div>
-
-          <div>
-
-            <h3 className="expense-title">
-              {title}
-            </h3>
-
-            <p className="expense-merchant">
-              {merchant}
-            </p>
-
-            <p className="expense-date">
-              {date}
-            </p>
-
-          </div>
-
+          <span className="expense-amount">
+            {amount.toFixed(2)} BDT
+          </span>
         </div>
 
-        <p className="expense-amount">
-          {amount.toFixed(2)} BDT
+        {/* Merchant */}
+        <div className="expense-merchant">
+          <Store size={14} />
+          <span>{merchant}</span>
+        </div>
+
+        {/* Date */}
+        <p className="expense-date">
+          {date}
         </p>
 
-      </div>
+        {/* Tags + Arrow */}
+        <div className="expense-bottom">
 
-      <div className="expense-bottom">
+          <div className="expense-tags">
 
-        <div className="expense-tags">
-
-          <span className="expense-tag-food">
-            {category}
-          </span>
-
-          {report && (
-            <span className="expense-tag-report">
-              In Report
+            <span className="expense-tag">
+              <Tag size={12} />
+              {category}
             </span>
-          )}
+
+            {report && (
+              <span className="expense-tag-report">
+                <Paperclip size={12} />
+                In Report
+              </span>
+            )}
+
+          </div>
+
+          <ChevronRight
+            size={18}
+            className="expense-arrow"
+          />
 
         </div>
 
-        <ChevronRight
-          size={20}
-          className="expense-arrow"
-        />
-
       </div>
-
     </Link>
   );
 }
