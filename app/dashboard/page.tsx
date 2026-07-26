@@ -30,6 +30,7 @@ export default function DashboardPage() {
         <SectionTitle
           title="Submitted Reports"
           linkText="Create +"
+            href="/dashboard/reports/create"
         />
 
         <ReportCard />
@@ -37,6 +38,7 @@ export default function DashboardPage() {
         <SectionTitle
           title="Recent Expenses"
           linkText="View all"
+           href="/dashboard/expense"
         />
 
         <ExpenseCard />

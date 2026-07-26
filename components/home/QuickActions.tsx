@@ -8,9 +8,12 @@ interface QuickActionsProps {
   onScanReceipt: () => void;
 }
 
+import { useRouter } from "next/navigation";
 export default function QuickActions({
   onScanReceipt,
 }: QuickActionsProps) {
+  const router = useRouter();
+
   return (
     <section className="quick-actions">
 
@@ -28,7 +31,7 @@ export default function QuickActions({
         title="New Expense"
         subtitle="Manual Entry"
         iconStyle="secondary"
-        onClick={onScanReceipt}
+        onClick={() => router.push("/dashboard/expense/create-expense")}
       />
 
     </section>

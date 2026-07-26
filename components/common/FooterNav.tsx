@@ -71,7 +71,7 @@ export default function FooterNav() {
           </Link>
 
           <Link
-            href="/dashboard/create-report"
+            href="/dashboard/reports/create"
             onClick={() => setOpen(false)}
             className="footer-popup-card"
           >
