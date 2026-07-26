@@ -1,29 +1,47 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ChevronRight,
   FileText,
 } from "lucide-react";
+import { getReports } from "@/lib/reportApi";
 
-interface Props {
-  id: number;
-  title: string;
-  date: string;
-  amount: number;
-  expenses: number;
-  status: string;
-}
+export default function ReportCard() {
+  const [report, setReport] = useState<any>(null);
 
-export default function ReportCard({
-  id,
-  title,
-  date,
-  amount,
-  expenses,
-  status,
-}: Props) {
+  useEffect(() => {
+    (async () => {
+      const res = await getReports();
+      if (res.success && res.data?.length > 0) {
+        const r = res.data[0];
+        setReport({
+          id: r.id,
+          title: r.title,
+          date: new Date(r.created_at).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
+          amount: Number(r.total_amount),
+          expenses: Number(r.expense_count),
+          status:
+            r.status === "active"
+              ? "Pending"
+              : r.status === "draft"
+                ? "Draft"
+                : "Completed",
+        });
+      }
+    })();
+  }, []);
+
+  if (!report) return null;
+
   return (
     <Link
-      href={`/dashboard/reports/${id}`}
+      href={`/dashboard/reports/${report.id}`}
       className="group report-card block"
     >
       <div className="report-top">
@@ -40,11 +58,11 @@ export default function ReportCard({
           <div>
 
             <h3 className="report-title">
-              {title}
+              {report.title}
             </h3>
 
             <p className="report-date">
-              {date}
+              {report.date}
             </p>
 
           </div>
@@ -52,7 +70,7 @@ export default function ReportCard({
         </div>
 
         <p className="report-amount">
-          {amount.toFixed(2)} BDT
+          {report.amount.toFixed(2)} BDT
         </p>
 
       </div>
@@ -62,11 +80,11 @@ export default function ReportCard({
         <div className="report-tags">
 
           <span className="report-tag">
-            {status}
+            {report.status}
           </span>
 
           <span className="report-expense-count">
-            {expenses} expense(s)
+            {report.expenses} expense(s)
           </span>
 
         </div>

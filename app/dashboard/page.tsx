@@ -5,8 +5,8 @@ import { useState } from "react";
 import Header from "@/components/home/Header";
 import ExpenseSummary from "@/components/home/ExpenseSummary";
 import QuickActions from "@/components/home/QuickActions";
-import ReportList from "@/components/home/ReportList";
-import ExpenseList from "@/components/home/ExpenseList";
+import ReportCard from "@/components/home/ReportCard";
+import ExpenseCard from "@/components/home/ExpenseCard";
 import SectionTitle from "@/components/common/SectionTitle";
 import ReceiptModal from "@/components/receipt/ReceiptModal";
 
@@ -32,14 +32,14 @@ export default function DashboardPage() {
           linkText="Create +"
         />
 
-        <ReportList />
+        <ReportCard />
 
         <SectionTitle
           title="Recent Expenses"
           linkText="View all"
         />
 
-        <ExpenseList />
+        <ExpenseCard />
 
       </main>
 
